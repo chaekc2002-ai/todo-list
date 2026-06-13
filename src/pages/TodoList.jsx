@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
+import { useLanguage } from '../i18n';
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
+  const { t } = useLanguage();
 
   const fetchTodos = async () => {
     const querySnapshot = await getDocs(collection(db, 'todos'));
@@ -35,7 +37,7 @@ export default function TodoList() {
 
   return (
     <div className="neo-card" style={{ backgroundColor: 'var(--accent)' }}>
-      <h2 style={{ marginBottom: '1.5rem' }}>Tasks to Conquer</h2>
+      <h2 style={{ marginBottom: '1.5rem' }}>{t('tasksTitle')}</h2>
       <form className="todo-form" onSubmit={handleAdd}>
         <input 
           className="neo-input" 
@@ -43,9 +45,9 @@ export default function TodoList() {
           type="text" 
           value={newTodo} 
           onChange={e => setNewTodo(e.target.value)} 
-          placeholder="What needs to be done?" 
+          placeholder={t('todoPlaceholder')} 
         />
-        <button className="neo-button" type="submit">Add</button>
+        <button className="neo-button" type="submit">{t('addBtn')}</button>
       </form>
       <ul className="todo-list">
         {todos.map(todo => (
@@ -64,21 +66,21 @@ export default function TodoList() {
                 style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
                 onClick={() => handleToggle(todo.id, todo.completed)}
               >
-                {todo.completed ? 'Undo' : 'Done'}
+                {todo.completed ? t('undoBtn') : t('doneBtn')}
               </button>
               <button 
                 className="neo-button danger" 
                 style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
                 onClick={() => handleDelete(todo.id)}
               >
-                Delete
+                {t('deleteBtn')}
               </button>
             </div>
           </li>
         ))}
         {todos.length === 0 && (
           <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: 'white', border: '3px solid var(--text-dark)', borderRadius: '8px' }}>
-            <p style={{ fontWeight: 'bold' }}>No tasks yet. Add one above! ✨</p>
+            <p style={{ fontWeight: 'bold' }}>{t('noTasks')}</p>
           </div>
         )}
       </ul>
