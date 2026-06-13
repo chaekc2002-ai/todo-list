@@ -5,13 +5,12 @@ import TodoList from './pages/TodoList';
 
 function App() {
   return (
-    <div>
-      <h1>Todo Management App</h1>
-      <div style={{ display: 'flex', gap: '20px' }}>
+    <div className="app-container">
+      <h1 className="header-title">Todo Management App</h1>
+      <div className="auth-forms">
         <TeacherLogin />
         <StudentSignup />
       </div>
-      <hr />
       <TodoList />
     </div>
   );

@@ -17,12 +17,26 @@ export default function TeacherLogin() {
   };
 
   return (
-    <div>
-      <h2>Teacher Login</h2>
+    <div className="neo-card">
+      <h2 style={{ marginBottom: '1.5rem', color: 'var(--primary)' }}>Teacher Login</h2>
       <form onSubmit={handleLogin}>
-        <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
-        <button type="submit">Login</button>
+        <input 
+          className="neo-input" 
+          type="email" 
+          placeholder="Email address" 
+          value={email} 
+          onChange={e => setEmail(e.target.value)} 
+          required 
+        />
+        <input 
+          className="neo-input" 
+          type="password" 
+          placeholder="Password" 
+          value={password} 
+          onChange={e => setPassword(e.target.value)} 
+          required 
+        />
+        <button className="neo-button" type="submit" style={{ width: '100%' }}>Login</button>
       </form>
     </div>
   );
